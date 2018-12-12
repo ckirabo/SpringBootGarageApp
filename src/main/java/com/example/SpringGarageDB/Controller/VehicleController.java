@@ -1,6 +1,7 @@
 package com.example.SpringGarageDB.Controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -61,7 +62,7 @@ public class VehicleController {
 			return updateData;
 		}
 	
-	//method to remove a vehicle 
+	 //method to remove a vehicle 
 		@DeleteMapping("/vehicle/(id)")
 		public ResponseEntity<?> deleteVehicle(@PathVariable(value = "id") Long vehicleID){
 			VehicleModel mSDM = myRepository.findById(vehicleID).orElseThrow(() 
@@ -71,8 +72,9 @@ public class VehicleController {
 			return ResponseEntity.ok().build();
 		}
 		
-		//method to delete vehicle by type
 		
+		//method to delete vehicle by type
+		/*
 		public List<VehicleModel> findAllVehiclesWithType(String vehicleType){	
 	
 			return myRepository.findByVehicleType(vehicleType);
@@ -81,13 +83,19 @@ public class VehicleController {
 		
 		@DeleteMapping("/Vehicle/(vehicleType)")
 		public ResponseEntity<?> removeByVehicleType(@PathVariable(value = "vehicleType") String vehicleType){
-			VehicleModel mSDM = myRepository.findByVehicleType(vehicleType).orElseThrow(()
-					-> new ResourceNotFoundException("Vehicle", "id", vehicleID));
 			
-			myRepository.delete(mSDM);
+			List<VehicleModel> vehicleTypeList = myRepository.findByVehicleType(vehicleType);
+			
+			for( int i = 0; i < vehicleTypeList.size(); i++ ) {
+				// myRepository.delete(vehicleTypeList.remove(i)); 
+				//myRepository.delete(vehicleTypeList.get(i));
+				//vehicleTypeList.remove(i);
+				
+			}
+			
 			return ResponseEntity.ok().build(); 
 			
-		}
+		}*/
 		
 		
 }
