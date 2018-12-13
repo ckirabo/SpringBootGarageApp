@@ -34,7 +34,7 @@ public class VehicleController {
 		}
 		
 	//method to get a vehicle 
-	@GetMapping("vehicle/(id)")
+	@GetMapping("/vehicle/{id}")
 	public VehicleModel getVehicleID(@PathVariable (value = "id") Long vehicleID) {
 		return myRepository.findById(vehicleID).orElseThrow(()->
 		new ResourceNotFoundException ("VehicleModel", "id", vehicleID));
@@ -47,7 +47,7 @@ public class VehicleController {
 		}
 		
 	//method to update a vehicle 
-		@PutMapping("/vehicle/(id)")
+		@PutMapping("/updateVehicle/{id}")
 		public VehicleModel updateVehicle(@PathVariable (value = "id") Long vehicleID, 
 				@Valid @RequestBody VehicleModel vehicleDetails) {
 			
@@ -63,7 +63,7 @@ public class VehicleController {
 		}
 	
 	 //method to remove a vehicle 
-		@DeleteMapping("/vehicle/(id)")
+		@DeleteMapping("/vehicle/{id}")
 		public ResponseEntity<?> deleteVehicle(@PathVariable(value = "id") Long vehicleID){
 			VehicleModel mSDM = myRepository.findById(vehicleID).orElseThrow(() 
 					-> new ResourceNotFoundException("Vehicle", "id", vehicleID));
@@ -71,31 +71,26 @@ public class VehicleController {
 			myRepository.delete(mSDM);
 			return ResponseEntity.ok().build();
 		}
+		 
 		
+		//method to search by vehicle by type
 		
-		//method to delete vehicle by type
-		/*
 		public List<VehicleModel> findAllVehiclesWithType(String vehicleType){	
 	
 			return myRepository.findByVehicleType(vehicleType);
 			
 		}
 		
-		@DeleteMapping("/Vehicle/(vehicleType)")
-		public ResponseEntity<?> removeByVehicleType(@PathVariable(value = "vehicleType") String vehicleType){
+		//method to search by vehicle by type
+		@GetMapping("/vehicles/{vehicleType}")
+		public List<VehicleModel>  getVehicleByType(@PathVariable (value = "vehicleType") String vehicleType) {
 			
-			List<VehicleModel> vehicleTypeList = myRepository.findByVehicleType(vehicleType);
+			return  myRepository.findByVehicleType(vehicleType);
 			
-			for( int i = 0; i < vehicleTypeList.size(); i++ ) {
-				// myRepository.delete(vehicleTypeList.remove(i)); 
-				//myRepository.delete(vehicleTypeList.get(i));
-				//vehicleTypeList.remove(i);
-				
-			}
 			
-			return ResponseEntity.ok().build(); 
-			
-		}*/
+		}
+		
+		
 		
 		
 }

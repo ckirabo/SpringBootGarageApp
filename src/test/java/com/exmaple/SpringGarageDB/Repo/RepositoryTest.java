@@ -1,5 +1,6 @@
 package com.exmaple.SpringGarageDB.Repo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -36,6 +37,19 @@ public class RepositoryTest {
 		assertTrue(myRepo.findById(model.getID()).isPresent());
 	}
 	
+	@Test
+	public void searchByName() {
+		VehicleModel model2 = new VehicleModel();
+		model2.setBrand("Fiesta");
+		model2.setvehicleType("Motorcyle");
+		model2.setLicenceNo("ITA829");
+		entityManager.persist(model2);
+		entityManager.flush();
+		
+		assertEquals(model2.getVehicleType(), myRepo.findByVehicleType("Motorcycle").get(1));
+	    //assertTrue(myRepo.findByVehicleType("Motorcycle"));
+		//model2.getVehicleType()
+	}
 	
 }
   
